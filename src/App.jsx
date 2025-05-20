@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import * as snackPantry from './pantry/snackPantry';
+import SnackList from './components/SnackList/SnackList';
+import SnackDetail from './components/SnackDetail/SnackDetail'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App =() => {
+  const [snacks, setSnacks] = useState([]);
+  const [selected, setSelected] = useState(null)
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+  const handleSelect = (snack) => {
+    setSelected(snack);
+    setIsFormOpen(false);
+  }
+ 
+useEffect(() => {
+  const fetchSnacks = async () => {
+    try {
+    const fetchedSnacks = await snackPantry.index()
+    if (fetchedSnacks.err) {
+      throw new Error(fetchedSnacks.err);
+    }
+    setSnacks(fetchedSnacks)
+  } catch (err) {
+
+    console.log(err);
+  }
+};
+fetchSnacks();
+}, []);
+
+return (
+  <>
+<SnackList snack={snack} handleSelect={handleSelect}/>;
+<SnackDetail selected={selected} />
+</>
+);
+};
 
 export default App
