@@ -50,7 +50,7 @@ import { useState } from 'react';
           value={formData.breed}
           onChange={handleChange}
         />
-        <button type="submit">Add New Snack</button>
+        <button type="submit">{props.selected ? "Update Snack" :" Add New Snack" }</button>
       </form>
     </div>
   );

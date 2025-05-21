@@ -31,6 +31,45 @@ const App =() => {
     }
   };
 
+  const handleUpdateSnack = async (formData, snackId) => {
+    try {
+      const updatedSnack = await snackPantry.update(formData, snackId);
+  
+      
+      if (updatedPet.err) {
+        throw new Error(updatedSnack.err);
+      }
+  
+      const updatedSnackList = snacks.map((snack) => (
+        
+        snack._id !== updatedSnack._id ? snack : updatedSnack
+      ));
+      
+      setSnacks(updatedSnackList);
+      
+      setSelected(updatedSnack);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleDeleteSnack = async (snackId) => {
+    try {
+      const deletedSnack = await snackPantry.deleteSnack(snackId);
+  
+      if (deletedSnack.err) {
+        throw new Error(deletedSnack.err);
+      }
+  
+      setSnacks(snacks.filter((snack) => snack._id !== deletedSnack._id));
+      setSelected(null);
+      setIsFormOpen(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
 useEffect(() => {
   const fetchSnacks = async () => {
     try {
@@ -51,11 +90,11 @@ return (
   <>
 <SnackList snack={snack} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen}/>
 {isFormOpen ? (
-  <SnackForm handleAddSnack={handleAddSnack} selected={selected} />
+  <SnackForm handleAddSnack={handleAddSnack} selected={selected} handleUpdateSnack={handleUpdateSnack}/>
 
 ) : ( 
 
-<SnackDetail selected={selected} handleFormView={handleFormView} />
+<SnackDetail selected={selected} handleFormView={handleFormView} handleDeleteSnack={handleDeleteSnack} />
 )}
 </>
 );
