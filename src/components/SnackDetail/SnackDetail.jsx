@@ -9,7 +9,9 @@ const SnackDetail = (props) => {
     }
     return (
         <div>
-      {/* this is where we put the type of snacks and other attributes */}
+      <h1>{props.selected.name}</h1>
+      <h2>Description: {props.selected.description}</h2>
+      <h2>Emoji: {props.selected.emoji}</h2>
       <div>
         <button onClick={() => props.handleFormView(props.selected)}>
           Edit Snack
