@@ -27,7 +27,7 @@ const emojis ={
   chips: "🥠",
   candy: "🍬",
   chocolate: "🍫",
-  Pastry: "🍩",
+  pastry: "🍩",
 };
 
 console.log(emojis)

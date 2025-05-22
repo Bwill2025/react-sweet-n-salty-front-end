@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "../node_modules/bootstrap/scss/functions";
 import { useState, useEffect } from 'react';
 import * as snackPantry from './pantry/snackPantry';
