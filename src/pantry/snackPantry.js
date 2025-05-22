@@ -23,6 +23,15 @@ const create = async (formData) => {
   }
 };
 
+const emojis ={
+  chips: "",
+  candy: "",
+  chocolate: "",
+  Pastry: "",
+};
+
+console.log(emojis)
+
 const update = async (formData, snackId) => {
   try {
     const res = await fetch(`${BASE_URL}/${snackId}`, {
