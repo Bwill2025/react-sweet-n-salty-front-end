@@ -24,10 +24,10 @@ const create = async (formData) => {
 };
 
 const emojis ={
-  chips: "",
-  candy: "",
-  chocolate: "",
-  Pastry: "",
+  chips: "🥠",
+  candy: "🍬",
+  chocolate: "🍫",
+  Pastry: "🍩",
 };
 
 console.log(emojis)
