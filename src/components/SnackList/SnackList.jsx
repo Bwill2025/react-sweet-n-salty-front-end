@@ -5,7 +5,7 @@ const SnackList = (props) => {
         <div>
             <h1>Snack List</h1>
             <div>
-            {!props.snacks.length ? (
+            {!props.snack.length ? (
                 <h2>No Snacks Yet Folks, Sorry!</h2>
             ) : (
                <ul>

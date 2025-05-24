@@ -1,5 +1,6 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "../node_modules/bootstrap/scss/functions";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import "../node_modules/bootstrap/scss/functions";
+import './App.css'
 import { useState, useEffect } from 'react';
 import * as snackPantry from './pantry/snackPantry';
 import SnackList from './components/SnackList/SnackList';
