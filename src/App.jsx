@@ -1,16 +1,23 @@
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import "../node_modules/bootstrap/scss/functions";
+import { Routes, Route } from 'react-router';
 import './App.css'
 import { useState, useEffect } from 'react';
 import * as snackPantry from './pantry/snackPantry';
 import SnackList from './components/SnackList/SnackList';
 import SnackDetail from './components/SnackDetail/SnackDetail'
 import SnackForm from './components/SnackForm/SnackForm'
+import NavBar from './components/NavBar/NavBar';
+import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignInForm from './components/SignInForm/SignInForm';
+import Landing from './components/Landing/Landing';
+import Dashboard from './components/Dashboard/Dashboard';
+import { UserContext } from './contexts/UserContext';
 const App =() => {
   const [snack, setSnacks] = useState([]);
   const [selected, setSelected] = useState(null)
   const [isFormOpen, setIsFormOpen] = useState(false);
-
+  const { user } = useContext(UserContext);
   const handleSelect = (snack) => {
     setSelected(snack);
     setIsFormOpen(false);
@@ -99,6 +106,13 @@ return (
 
 <SnackDetail selected={selected} handleFormView={handleFormView} handleDeleteSnack={handleDeleteSnack} />
 )}
+<NavBar />
+      <Routes>
+      <Route path='/' element={user ? <Dashboard /> : <Landing /> } />
+        <Route path='/sign-up' element={<SignUpForm />} />
+        <Route path="/sign-in" element={<SignInForm />} />
+      </Routes>
+
 </>
 );
 };
