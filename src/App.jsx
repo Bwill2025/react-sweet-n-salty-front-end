@@ -2,7 +2,7 @@
 // import "../node_modules/bootstrap/scss/functions";
 import { Routes, Route } from 'react-router';
 import './App.css'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import * as snackPantry from './pantry/snackPantry';
 import SnackList from './components/SnackList/SnackList';
 import SnackDetail from './components/SnackDetail/SnackDetail'
