@@ -1,5 +1,3 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import "../node_modules/bootstrap/scss/functions";
 import { Routes, Route } from 'react-router';
 import './App.css'
 import { useState, useEffect, useContext } from 'react';
@@ -13,15 +11,17 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import { UserContext } from './contexts/UserContext';
-const App =() => {
+
+const App = () => {
   const [snacks, setSnacks] = useState([]);
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { user } = useContext(UserContext);
+
   const handleSelect = (snack) => {
     setSelected(snack);
     setIsFormOpen(false);
-  }
+  };
 
   const handleFormView = (snack) => {
     if (!snack._id) setSelected(null);
@@ -44,33 +44,26 @@ const App =() => {
   const handleUpdateSnack = async (formData, snackId) => {
     try {
       const updatedSnack = await snackPantry.update(formData, snackId);
-
-
       if (updatedSnack.err) {
         throw new Error(updatedSnack.err);
       }
-
-      const updatedSnackList = snacks.map((snack) => (
-
+      const updatedSnackList = snacks.map((snack) =>
         snack._id !== updatedSnack._id ? snack : updatedSnack
-      ));
-
+      );
       setSnacks(updatedSnackList);
-
       setSelected(updatedSnack);
       setIsFormOpen(false);
     } catch (err) {
       console.log(err);
     }
   };
+
   const handleDeleteSnack = async (snackId) => {
     try {
       const deletedSnack = await snackPantry.deleteSnack(snackId);
-
       if (deletedSnack.err) {
         throw new Error(deletedSnack.err);
       }
-
       setSnacks(snacks.filter((snack) => snack._id !== deletedSnack._id));
       setSelected(null);
       setIsFormOpen(false);
@@ -79,42 +72,56 @@ const App =() => {
     }
   };
 
+  useEffect(() => {
+    const fetchSnacks = async () => {
+      try {
+        const fetchedSnacks = await snackPantry.index();
+        if (fetchedSnacks.err) {
+          throw new Error(fetchedSnacks.err);
+        }
+        setSnacks(fetchedSnacks);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchSnacks();
+  }, []);
 
-useEffect(() => {
-  const fetchSnacks = async () => {
-    try {
-    const fetchedSnacks = await snackPantry.index()
-    if (fetchedSnacks.err) {
-      throw new Error(fetchedSnacks.err);
-    }
-    setSnacks(fetchedSnacks)
-  } catch (err) {
+  return (
+    <>
+      <NavBar /> {/* Always show NavBar */}
 
-    console.log(err);
-  }
-};
-fetchSnacks();
-}, []);
+      {user && (  // Only show snacks if user is signed in
+        <>
+          <SnackList
+            snack={snacks}
+            handleSelect={handleSelect}
+            handleFormView={handleFormView}
+            isFormOpen={isFormOpen}
+          />
+          {isFormOpen ? (
+            <SnackForm
+              handleAddSnack={handleAddSnack}
+              selected={selected}
+              handleUpdateSnack={handleUpdateSnack}
+            />
+          ) : (
+            <SnackDetail
+              selected={selected}
+              handleFormView={handleFormView}
+              handleDeleteSnack={handleDeleteSnack}
+            />
+          )}
+        </>
+      )} 
 
-return (
-  <>
-<SnackList snack={snacks} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen}/>
-{isFormOpen ? (
-  <SnackForm handleAddSnack={handleAddSnack} selected={selected} handleUpdateSnack={handleUpdateSnack}/>
-
-) : (
-
-<SnackDetail selected={selected} handleFormView={handleFormView} handleDeleteSnack={handleDeleteSnack} />
-)}
-<NavBar />
       <Routes>
-      <Route path='/' element={user ? <Dashboard /> : <Landing /> } />
+        <Route path='/' element={user ? <Dashboard /> : <Landing />} />
         <Route path='/sign-up' element={<SignUpForm />} />
-        <Route path="/sign-in" element={<SignInForm />} />
+        <Route path='/sign-in' element={<SignInForm />} />
       </Routes>
-
-</>
-);
+    </>
+  );
 };
 
-export default App
+export default App;
