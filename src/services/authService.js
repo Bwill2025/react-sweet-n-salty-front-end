@@ -8,9 +8,13 @@ const signUp = async (formData) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     });
-    const data = await res.json();
 
-    if (data.err) throw new Error(data.err);
+    if (!res.ok) {
+      const errorData =await res.text();
+      throw new Error(errorData || 'Sign-up failed');
+    }
+
+    const data = await res.json();
 
     if (data.token) {
       localStorage.setItem('token', data.token);
@@ -20,10 +24,10 @@ const signUp = async (formData) => {
     throw new Error('Invalid response from server');
   } catch (err) {
     console.log(err);
-    throw new Error(err);
+    throw new Error(err.message || 'Unknown sign-up error');
   }
 };
-  
+
 const signIn = async (formData) => {
         try {
           const res = await fetch(`${BASE_URL}/sign-in`, {
@@ -31,26 +35,26 @@ const signIn = async (formData) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData),
           });
-      
-          const data = await res.json();
-      
-          if (data.err) {
-            throw new Error(data.err);
+
+          if (!res.ok) {
+            const errorData = await res.text();
+            throw new Error(errorData || 'Sign-in failed')
           }
-      
+
+          const data = await res.json();
+
           if (data.token) {
             localStorage.setItem('token', data.token);
             return JSON.parse(atob(data.token.split('.')[1])).payload;
           }
-      
+
           throw new Error('Invalid response from server');
         } catch (err) {
           console.log(err);
-          throw new Error(err);
+          throw new Error(err.message || 'Unknown sign-in error');
         }
       };
-    
+
 
 
 export {signUp, signIn}
-

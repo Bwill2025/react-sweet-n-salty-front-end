@@ -5,26 +5,26 @@ const SnackList = (props) => {
         <div>
             <h1>Snack List</h1>
             <div>
-            {!props.snack.length ? (
-                <h2>No Snacks Yet Folks, Sorry!</h2>
+            {!props.snack?.length ? (
+                <h2>Time to stock the pantry!</h2>
             ) : (
                <ul>
-                {props.pets.map((pet) => (
+                {props.snack.map((snack) => (
                     <li
                     key={snack._id}
                     style={{ cursor: 'grab', color: "chocolate"}}
                     onClick={() => props.handleSelect(snack)}
-                    >
-                        {snack.name}
-                        </li>
+                >
+                    {snack.name}
+                    </li>
                 ))}
-               </ul>     
+               </ul>
             )}
             </div>
             <button onClick={props.handleFormView}>
              {props.isFormOpen ? 'Close Form' : 'New Snack'}
              </button>
-             </div>   
+             </div>
     );
 }
 export default SnackList;

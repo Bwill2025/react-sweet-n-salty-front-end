@@ -14,7 +14,7 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import { UserContext } from './contexts/UserContext';
 const App =() => {
-  const [snack, setSnacks] = useState([]);
+  const [snacks, setSnacks] = useState([]);
   const [selected, setSelected] = useState(null)
   const [isFormOpen, setIsFormOpen] = useState(false);
   const { user } = useContext(UserContext);
@@ -22,7 +22,7 @@ const App =() => {
     setSelected(snack);
     setIsFormOpen(false);
   }
- 
+
   const handleFormView = (snack) => {
     if (!snack._id) setSelected(null);
     setIsFormOpen(!isFormOpen);
@@ -44,19 +44,19 @@ const App =() => {
   const handleUpdateSnack = async (formData, snackId) => {
     try {
       const updatedSnack = await snackPantry.update(formData, snackId);
-  
-      
-      if (updatedPet.err) {
+
+
+      if (updatedSnack.err) {
         throw new Error(updatedSnack.err);
       }
-  
+
       const updatedSnackList = snacks.map((snack) => (
-        
+
         snack._id !== updatedSnack._id ? snack : updatedSnack
       ));
-      
+
       setSnacks(updatedSnackList);
-      
+
       setSelected(updatedSnack);
       setIsFormOpen(false);
     } catch (err) {
@@ -66,11 +66,11 @@ const App =() => {
   const handleDeleteSnack = async (snackId) => {
     try {
       const deletedSnack = await snackPantry.deleteSnack(snackId);
-  
+
       if (deletedSnack.err) {
         throw new Error(deletedSnack.err);
       }
-  
+
       setSnacks(snacks.filter((snack) => snack._id !== deletedSnack._id));
       setSelected(null);
       setIsFormOpen(false);
@@ -78,7 +78,7 @@ const App =() => {
       console.log(err);
     }
   };
-  
+
 
 useEffect(() => {
   const fetchSnacks = async () => {
@@ -98,11 +98,11 @@ fetchSnacks();
 
 return (
   <>
-<SnackList snack={snack} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen}/>
+<SnackList snack={snacks} handleSelect={handleSelect} handleFormView={handleFormView} isFormOpen={isFormOpen}/>
 {isFormOpen ? (
   <SnackForm handleAddSnack={handleAddSnack} selected={selected} handleUpdateSnack={handleUpdateSnack}/>
 
-) : ( 
+) : (
 
 <SnackDetail selected={selected} handleFormView={handleFormView} handleDeleteSnack={handleDeleteSnack} />
 )}
