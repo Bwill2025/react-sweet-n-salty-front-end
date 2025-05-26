@@ -25,8 +25,12 @@ const SignUpForm = () => {
     evt.preventDefault();
     try {
       const newUser = await signUp(formData);
-      setUser(newUser);
-      navigate('/');
+      if (newUser) {
+        setUser(newUser);
+        navigate('/');
+      } else {
+        setMessage('Sign up failed in the signup form.')
+      }
     } catch (err) {
       setMessage(err.message);
     }

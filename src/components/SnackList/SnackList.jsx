@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
+
 const SnackList = (props) => {
+    const { user } = useContext(UserContext)
     console.log(props);
 
     return (
@@ -6,7 +10,7 @@ const SnackList = (props) => {
             <h1>Snack List</h1>
             <div>
             {!props.snack?.length ? (
-                <h2>Time to stock the pantry!</h2>
+                <h2> Please stock pantry!</h2>
             ) : (
                <ul>
                 {props.snack.map((snack) => (
@@ -21,9 +25,11 @@ const SnackList = (props) => {
                </ul>
             )}
             </div>
+            { user && (
             <button onClick={props.handleFormView}>
              {props.isFormOpen ? 'Close Form' : 'New Snack'}
              </button>
+             )}
              </div>
     );
 }
