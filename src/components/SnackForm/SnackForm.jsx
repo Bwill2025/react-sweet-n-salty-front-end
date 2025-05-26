@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
   const initialState = {
     name: '',
@@ -8,9 +8,18 @@ import { useState } from 'react';
     image: '',
   }
   const SnackForm = (props) => {
-    const [formData, setFormData] = useState(
-        props.selected ? props.selected : initialState
-    )
+    const [formData, setFormData] = useState(initialState);
+    const [isFormOpen, setIsFormOpen] = useState(false);
+
+    useEffect(() => {
+        if (props.selected) {
+          setFormData(props.selected);
+          setIsFormOpen(true); 
+        } else {
+          setFormData(initialState);
+        }
+      }, [props.selected]);
+
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -23,18 +32,30 @@ import { useState } from 'react';
     } else {
         props.handleAddSnack(formData)
     }
-}
+    setFormData(initialState); 
+    setIsFormOpen(false); 
+  };
+const toggleForm = () => {
+    setIsFormOpen(!isFormOpen);
+    if (!isFormOpen) {
+      setFormData(initialState); 
+    }
+  };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name"> Name </label>
-        <input
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <button onClick={toggleForm}>
+        {isFormOpen ? 'Close Form' : props.selected ? 'Edit Snack' : 'Add New Snack'}
+      </button>
+      {isFormOpen && (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name"> Name </label>
+          <input
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
         <label htmlFor="description"> Description </label>
         <input
           id="description"
@@ -74,6 +95,7 @@ import { useState } from 'react';
         
         <button type="submit">{props.selected ? "Update Snack" :" Add New Snack" }</button>
       </form>
+      )}
     </div>
   );
 };
