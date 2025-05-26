@@ -9,11 +9,13 @@ const index = async () => {
   }
 };
 const create = async (formData) => {
+  const token = localStorage.getItem('token') // protection so  only signed in users can create
   try {
       const res = await fetch(BASE_URL, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(formData),
           });
@@ -34,10 +36,13 @@ console.log(emojis)
 
 const update = async (formData, snackId) => {
   try {
+    const token = localStorage.getItem('token');
+
     const res = await fetch(`${BASE_URL}/${snackId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
       },
       body: JSON.stringify(formData),
     });

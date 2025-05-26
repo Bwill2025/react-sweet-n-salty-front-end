@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-
-  
   const initialState = {
     name: '',
     description: '',
     emoji: '',
+    category: '',
+    image: '',
   }
   const SnackForm = (props) => {
     const [formData, setFormData] = useState(
         props.selected ? props.selected : initialState
     )
-  
+
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
@@ -39,17 +39,39 @@ import { useState } from 'react';
         <input
           id="description"
           name="description"
-          value={formData.age}
+          value={formData.description}
           onChange={handleChange}
           required
         />
-        <label htmlFor="emoji"> Emoji </label>
+        <label htmlFor="image"> Image URL </label>
         <input
-          id="emoji"
-          name="emoji"
-          value={formData.breed}
+          id="image"
+          name="image"
+          value={formData.image}
           onChange={handleChange}
         />
+         <label htmlFor="category"> Category </label>
+        <select
+          id="category"
+          name="category"
+          value={formData.category}
+          onChange={handleChange}
+          required
+        >
+          <option value="">-- Select a category --</option>
+          <option value="sweet">Sweet</option>
+          <option value="salty">Salty</option>
+        </select>
+
+        <label htmlFor="emoji"> Emoji </label>
+        <select name="emoji" value={formData.emoji} onChange={handleChange}>
+          <option value="">-- Choose an emoji --</option>
+          <option value="🍬">Candy</option>
+          <option value="🍫">Chocolate</option>
+          <option value="🍩">Pastry</option>
+          <option value="🥨">Chips</option>
+        </select>
+        
         <button type="submit">{props.selected ? "Update Snack" :" Add New Snack" }</button>
       </form>
     </div>
