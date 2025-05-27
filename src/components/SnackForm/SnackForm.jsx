@@ -52,6 +52,16 @@ import { useState, useEffect } from 'react';
           value={formData.image}
           onChange={handleChange}
         />
+        {formData.image && (
+          <div>
+            <p>Preview:</p>
+            <img
+              src={formData.image}
+              alt={formData.name || 'Snack Image'}
+              style={{ width: '150px', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
+            />
+          </div>
+        )}
          <label htmlFor="category"> Category </label>
         <select
           id="category"

@@ -1,3 +1,43 @@
+.navbar {
+  position: fixed; 
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.9); 
+  border-bottom: 2px solid var(--primary-color); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  z-index: 1000; 
+}
+
+.navbar a {
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: var(--accent-color);
+}
+.welcome-message {
+  position: fixed; 
+  top: 0; 
+  right: 0; 
+  margin: 1rem; 
+  padding: 1rem 2rem;
+  background-color: rgba(255, 255, 255, 0.9); 
+  color: var(--primary-color); 
+  font-weight: 700;
+  font-size: 1.5rem;
+  border: 2px solid var(--primary-color); 
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  z-index: 1000; 
+}
+
 :root {
   font-family: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,11 +52,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: #ff6f61; /* Candy red */
-  --secondary-color: #ffcc80; /* Pastry beige */
-  --accent-color: #ffd54f; /* Chips yellow */
-  --background-color: #fff8e1; /* Light pantry background */
-  --text-color: #4a4a4a; /* Neutral text color */
+  --primary-color: #ff6f61; 
+  --secondary-color: #ffcc80; 
+  --accent-color: #ffd54f; 
+  --background-color: #fff8e1; 
+  --text-color: #4a4a4a; 
 }
 
 body {
@@ -29,6 +69,10 @@ body {
   min-height: 100vh;
   background-color: var(--background-color);
   color: var(--text-color);
+  background-image: url('https://www.housedigest.com/img/gallery/29-pantry-shelf-ideas-that-will-transform-your-kitchen-storage/intro-1686058619.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
 }
 
 h1 {
@@ -70,28 +114,42 @@ button:focus-visible {
 }
 
 .pantry {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1.5rem;
+  display: flex; /* Use flexbox for row layout */
+  flex-wrap: wrap; /* Allow items to wrap to the next row if they don't fit */
+  gap: 1.5rem; /* Add spacing between items */
   padding: 2rem;
-  background-color: #fff3e0;
-  border-radius: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent background */
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   width: 90%;
   max-width: 1200px;
+  justify-content: center; /* Center items horizontally */
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(50px); 
+    opacity: 0; 
+  }
+  to {
+    transform: translateY(0); 
+    opacity: 1; 
+  }
 }
 
 .snack-item {
+  width: 200px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   padding: 1rem;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
   border: 2px solid var(--secondary-color);
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
+  animation: slideIn 0.5s ease-in-out;
 }
 .snack-item:hover {
   transform: translateY(-5px);
@@ -110,12 +168,21 @@ button:focus-visible {
   font-size: 1.5em;
   color: var(--primary-color);
   margin: 0.5rem 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem; 
+  border-radius: 8px; 
+  text-align: center; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .snack-item p {
   font-size: 1em;
   color: var(--text-color);
   text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0.5rem 1rem; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (prefers-color-scheme: dark) {

@@ -17,20 +17,43 @@ const SnackList = (props) => {
                     <li
                     key={snack._id}
                     onClick={() => props.handleSelect(snack)}
-                    style={{ cursor: 'grab', color: "chocolate"}}
+                    className="snack-item"
                 >
-                    {snack.name}
-                    </li>
-                ))}
-               </ul>
-            )}
+                    
+                    {snack.image && (
+                        <img
+                            src={snack.image}
+                            alt={snack.name || 'Snack Image'}
+                            style={{
+                                width: '50px',
+                                height: '50px',
+                                objectFit: 'cover',
+                                borderRadius: '8px',
+                            }}
+                        />
+                    )}
+                    {snack.emoji && (
+                                    <span
+                                        style={{
+                                            fontSize: '1.5rem',
+                                        }}
+                                    >
+                                        {snack.emoji}
+                                    </span>
+                                )}
+                               
+                                <span>{snack.name}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-            { user && (
-            <button onClick={props.handleFormView}>
-             {props.isFormOpen ? 'Close Form' : 'New Snack'}
-             </button>
-             )}
-             </div>
+            {user && (
+                <button onClick={props.handleFormView}>
+                    {props.isFormOpen ? 'Close Form' : 'New Snack'}
+                </button>
+            )}
+        </div>
     );
-}
+};
 export default SnackList;
