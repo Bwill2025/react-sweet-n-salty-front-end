@@ -42,7 +42,7 @@ const update = async (formData, snackId) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(formData),
     });
@@ -56,6 +56,9 @@ const deleteSnack = async (snackId) => {
   try {
     const res = await fetch(`${BASE_URL}/${snackId}`, {
       method: 'DELETE',
+      headers: {
+        Authorization:`Bearer ${localStorage.getItem('token')}`,
+      },
     });
     return res.json();
   } catch (err) {

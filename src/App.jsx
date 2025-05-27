@@ -61,10 +61,12 @@ const App = () => {
   const handleDeleteSnack = async (snackId) => {
     try {
       const deletedSnack = await snackPantry.deleteSnack(snackId);
+
       if (deletedSnack.err) {
         throw new Error(deletedSnack.err);
       }
-      setSnacks(snacks.filter((snack) => snack._id !== deletedSnack._id));
+      const updatedList = snacks.filter((snack) => snack._id !== snackId);
+      setSnacks(updatedList);
       setSelected(null);
       setIsFormOpen(false);
     } catch (err) {
@@ -91,10 +93,16 @@ const App = () => {
     <>
       <NavBar /> {/* Always show NavBar */}
 
+      {user && (
+        <h2 style={{ textAlign: 'center', marginTop: '1rem' }}>
+          Welcome, {user.username}!
+        </h2>
+      )}
+
       {user && (  // Only show snacks if user is signed in
         <>
           <SnackList
-            snack={snacks}
+            snacks={snacks}
             handleSelect={handleSelect}
             handleFormView={handleFormView}
             isFormOpen={isFormOpen}
@@ -113,7 +121,7 @@ const App = () => {
             />
           )}
         </>
-      )} 
+      )}
 
       <Routes>
         <Route path='/' element={user ? <Dashboard /> : <Landing />} />

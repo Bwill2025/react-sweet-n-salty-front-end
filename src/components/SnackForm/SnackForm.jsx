@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
   const initialState = {
     name: '',
@@ -8,9 +8,11 @@ import { useState } from 'react';
     image: '',
   }
   const SnackForm = (props) => {
-    const [formData, setFormData] = useState(
-        props.selected ? props.selected : initialState
-    )
+    const [formData, setFormData] = useState(initialState)
+    
+    useEffect(() => {
+      setFormData(props.selected || initialState );
+    }, [props.selected]);
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
@@ -71,7 +73,7 @@ import { useState } from 'react';
           <option value="🍩">Pastry</option>
           <option value="🥨">Chips</option>
         </select>
-        
+
         <button type="submit">{props.selected ? "Update Snack" :" Add New Snack" }</button>
       </form>
     </div>

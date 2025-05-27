@@ -9,15 +9,15 @@ const SnackList = (props) => {
         <div>
             <h1>Snack List</h1>
             <div>
-            {!props.snack?.length ? (
+            {!props.snacks?.length ? (
                 <h2> Please stock pantry!</h2>
             ) : (
                <ul>
-                {props.snack.map((snack) => (
+                {props.snacks.map((snack) => (
                     <li
                     key={snack._id}
-                    style={{ cursor: 'grab', color: "chocolate"}}
                     onClick={() => props.handleSelect(snack)}
+                    style={{ cursor: 'grab', color: "chocolate"}}
                 >
                     {snack.name}
                     </li>
