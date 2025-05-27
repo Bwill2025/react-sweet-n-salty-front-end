@@ -21,6 +21,10 @@ Usage
 * Add images (gifs for animation) and icons (emojis) for a more personal touch
 * Remove a snack when you're "done munching"
 
+Deployable links:   
+
+                    https://sweet-n-salty-snacks-back-end-1e07688d47b1.herokuapp.com/
+
 Contributors
 
 * Victoria & Brandon
