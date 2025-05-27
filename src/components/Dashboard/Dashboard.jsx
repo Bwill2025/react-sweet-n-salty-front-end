@@ -9,7 +9,7 @@ const Dashboard = () => {
 
 
   return ( <main className="dashboard">
-      {/* Dashboard-specific content can go here in the future */}
+    
     </main>
   );
   };
