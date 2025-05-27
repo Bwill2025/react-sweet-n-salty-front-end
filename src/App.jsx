@@ -91,7 +91,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar /> 
+      <NavBar />
 
       {user && (
       <div className="welcome-message">
@@ -99,7 +99,7 @@ const App = () => {
       </div>
     )}
 
-      {user && (  
+      {user && (
         <>
           <SnackList
             snacks={snacks}
@@ -118,6 +118,7 @@ const App = () => {
               selected={selected}
               handleFormView={handleFormView}
               handleDeleteSnack={handleDeleteSnack}
+              handleSelect={handleSelect}
             />
           )}
         </>

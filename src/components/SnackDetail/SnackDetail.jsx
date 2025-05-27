@@ -1,7 +1,8 @@
 const SnackDetail = (props) => {
 
     if (!props.selected) {
-        return null; 
+        return null;
+
     }
     return (
         <div>
@@ -14,6 +15,9 @@ const SnackDetail = (props) => {
         </button>
         <button onClick={() => props.handleDeleteSnack(props.selected._id)}>
           Delete Snack
+        </button>
+        <button onClick={() => props.handleSelect(null)}>
+          Close Details
         </button>
       </div>
     </div>
