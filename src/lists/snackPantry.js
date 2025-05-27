@@ -9,7 +9,7 @@ const index = async () => {
   }
 };
 const create = async (formData) => {
-  const token = localStorage.getItem('token') // protection so  only signed in users can create
+  const token = localStorage.getItem('token') 
   try {
       const res = await fetch(BASE_URL, {
           method: 'POST',
